@@ -30,7 +30,7 @@ class IOVariable {
 
 template <typename T>
 IOVariable<T>::IOVariable() {
-	value = new T;
+	value = (T)0;
 }
 
 template <typename T>
