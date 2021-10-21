@@ -1,7 +1,7 @@
 #ifndef _IOVariable_h
 #define _IOVariable_h
 
-#include <ListLib.h>
+#include <LinkedList.h>
 
 
 #if defined(ESP8266) || defined(ESP32)
@@ -24,7 +24,7 @@ class IOVariable {
 		void onChange(IOVAR_ONCHANGE_SIGNATURE);
 	private:
 		T value;
-		List<IOVAR_CALLBACK_SIGNATURE> callbacks;
+		LinkedList<IOVAR_CALLBACK_SIGNATURE> callbacks;
 };
 
 
@@ -46,14 +46,14 @@ T IOVariable<T>::get() {
 template <typename T>
 void IOVariable<T>::set(T __value) {
 	value = __value;
-	for( int i=0 ; i<callbacks.Count(); i ++) {
-		callbacks[i](value);
+	for( int i=0 ; i<callbacks.size(); i ++) {
+		callbacks.get(i)(value);
 	}
 }
 
 template <typename T>
 void IOVariable<T>::onChange(IOVAR_ONCHANGE_SIGNATURE) {
-	callbacks.Add(__func);
+	callbacks.add(__func);
 }
 
 

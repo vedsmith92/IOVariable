@@ -2,8 +2,13 @@
 #include <IOVariable.h>
 
 
-void onChange(int __value) {
-	Serial.print("Value change to: ");
+void onChange1(int __value) {
+	Serial.print("[Callback 1] Value change to: ");
+	Serial.println(__value);
+}
+
+void onChange2(int __value) {
+	Serial.print("[Callback 2] Value change to: ");
 	Serial.println(__value);
 }
 
@@ -16,7 +21,8 @@ void setup() {
 
 	Serial.begin(9600);
 
-	v.onChange(&onChange);
+	v.onChange(&onChange1);
+	v.onChange(&onChange2);
 
 	Serial.print("Initialize value: ");
 	Serial.println(v.get());
