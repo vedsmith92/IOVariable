@@ -12,7 +12,7 @@ void onChange2(int __value) {
 	Serial.println(__value);
 }
 
-IOVariable<int> v(0);
+IOVariable<int> v(0, true);
 
 int i = 0;
 
@@ -30,6 +30,9 @@ void setup() {
 	Serial.print("Get value(0): ");
 	Serial.println(v.get());
 
+	v.set(-1);
+	v.set(-1);
+	v.set(-1);
 	v.set(-1);
 	
 	Serial.print("Get value(-1): ");
