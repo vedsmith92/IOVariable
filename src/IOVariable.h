@@ -18,13 +18,13 @@ template <typename T>
 class IOVariable {
 	public:
 		IOVariable();
-		IOVariable(T initializeValue, bool __dontCallbackSameValue = false);
+		IOVariable(T initializeValue, bool __callbackSameValue = false);
 		T get();
 		void set(T __value);
 		void onChange(IOVAR_ONCHANGE_SIGNATURE);
 	private:
 		T value;
-		bool dontCallbackSameValue;
+		bool callbackSameValue;
 		LinkedList<IOVAR_CALLBACK_SIGNATURE> callbacks;
 };
 
@@ -35,9 +35,9 @@ IOVariable<T>::IOVariable() {
 }
 
 template <typename T>
-IOVariable<T>::IOVariable(T initializeValue, bool __dontCallbackSameValue) {
+IOVariable<T>::IOVariable(T initializeValue, bool __callbackSameValue) {
 	value = initializeValue;
-	dontCallbackSameValue = __dontCallbackSameValue;
+	callbackSameValue = __callbackSameValue;
 }
 
 template <typename T>
@@ -48,7 +48,7 @@ T IOVariable<T>::get() {
 template <typename T>
 void IOVariable<T>::set(T __value) {
 
-	if(dontCallbackSameValue) {
+	if(!callbackSameValue) {
 		if(value == __value) {
 			return;
 		}
