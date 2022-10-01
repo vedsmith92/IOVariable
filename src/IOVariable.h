@@ -22,7 +22,7 @@ class IOVariable {
 		T get();
 		void set(T __value);
 		void forceSet(T __value);
-		void onChange(IOVAR_ONCHANGE_SIGNATURE);
+		void onChange(IOVAR_ONCHANGE_SIGNATURE, bool __initCallback = false);
 	private:
 		T value;
 		bool callbackSameValue;
@@ -73,7 +73,9 @@ void IOVariable<T>::forceSet(T __value) {
 }
 
 template <typename T>
-void IOVariable<T>::onChange(IOVAR_ONCHANGE_SIGNATURE) {
+void IOVariable<T>::onChange(IOVAR_ONCHANGE_SIGNATURE, bool __initCallback) {
+	if(__initCallback)
+		__func(value);
 	callbacks.add(__func);
 }
 
