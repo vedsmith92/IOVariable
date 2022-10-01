@@ -21,6 +21,7 @@ class IOVariable {
 		IOVariable(T initializeValue, bool __callbackSameValue = false);
 		T get();
 		void set(T __value);
+		void forceSet(T __value);
 		void onChange(IOVAR_ONCHANGE_SIGNATURE);
 	private:
 		T value;
@@ -53,6 +54,16 @@ void IOVariable<T>::set(T __value) {
 			return;
 		}
 	}
+
+	value = __value;
+
+	for( int i=0 ; i<callbacks.size(); i ++) {
+		callbacks.get(i)(value);
+	}
+}
+
+template <typename T>
+void IOVariable<T>::forceSet(T __value) {
 
 	value = __value;
 
